@@ -2,13 +2,14 @@ import pytest
 from selenium import webdriver
 from pages.login_page import LoginPage
 from helpers import generate_user, create_user, delete_user
+from data.urls import BASE_URL
 
 
 @pytest.fixture(params=["chrome", "firefox"])
 def driver(request):
 
     driver = webdriver.Chrome() if request.param == "chrome" else webdriver.Firefox()
-    driver.get("https://stellarburgers.education-services.ru/")
+    driver.get(BASE_URL)
     driver.maximize_window()
 
     yield driver

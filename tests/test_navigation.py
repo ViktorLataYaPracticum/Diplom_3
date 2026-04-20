@@ -3,51 +3,51 @@ from pages.main_page import MainPage
 from pages.constructor_page import ConstructorPage
 from pages.modal_page import ModalPage
 
+class TestNavigation:
+    @allure.title("Переход в Конструктор")
+    def test_go_to_constructor(self,driver):
 
-@allure.title("Переход в Конструктор")
-def test_go_to_constructor(driver):
+        page = MainPage(driver)
 
-    page = MainPage(driver)
+        with allure.step("Клик Конструктор"):
+            page.go_to_constructor()
 
-    with allure.step("Клик Конструктор"):
-        page.go_to_constructor()
-
-    with allure.step("Проверка открытия"):
-        assert page.is_open()
-
-
-@allure.title("Переход в Ленту заказов")
-def test_go_to_feed(driver):
-
-    page = MainPage(driver)
-
-    with allure.step("Клик Лента заказов"):
-        page.go_to_feed()
-
-    with allure.step("Проверка открытия"):
-        assert "feed" in driver.current_url
+        with allure.step("Проверка открытия"):
+            assert page.is_open()
 
 
-@allure.title("Открытие модального окна ингредиента")
-def test_open_modal(driver):
+    @allure.title("Переход в Ленту заказов")
+    def test_go_to_feed(self,driver):
 
-    page = ConstructorPage(driver)
-    modal = ModalPage(driver)
+        page = MainPage(driver)
 
-    page.go_to_ingredient()
+        with allure.step("Клик Лента заказов"):
+            page.go_to_feed()
 
-    assert modal.is_open()
+        with allure.step("Проверка открытия"):
+            assert "feed" in page.get_current_url()
 
 
-@allure.title("Закрытие модального окна")
-def test_close_modal(driver):
+    @allure.title("Открытие модального окна ингредиента")
+    def test_open_modal(self,driver):
 
-    page = ConstructorPage(driver)
-    modal = ModalPage(driver)
+        page = ConstructorPage(driver)
+        modal = ModalPage(driver)
 
-    page.go_to_ingredient()
+        page.go_to_ingredient()
 
-    modal.close()
+        assert modal.is_open()
 
-    assert modal.wait_closed()
-    assert not modal.is_open()
+
+    @allure.title("Закрытие модального окна")
+    def test_close_modal(self,driver):
+
+        page = ConstructorPage(driver)
+        modal = ModalPage(driver)
+
+        page.go_to_ingredient()
+
+        modal.close()
+
+        assert modal.wait_closed()
+        assert not modal.is_open()

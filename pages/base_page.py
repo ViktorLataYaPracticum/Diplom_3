@@ -1,6 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from data.urls import BASE_URL,FEED
 
 class BasePage:
 
@@ -27,3 +27,9 @@ class BasePage:
     
     def find_elements(self, locator):
         return self.driver.find_elements(*locator)
+    
+    def get_feed_page(self):
+        self.driver.get(BASE_URL + FEED)
+    
+    def get_current_url(self):
+        return self.driver.current_url

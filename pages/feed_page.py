@@ -2,9 +2,8 @@ from pages.base_page import BasePage
 from data.locators import FeedPageLocators
 
 class FeedPage(BasePage):
-
     def open_feed(self):
-        self.driver.get("https://stellarburgers.education-services.ru/feed")
+        self.get_feed_page()
 
     def get_total_done(self):
         return int(self.get_text(FeedPageLocators.TOTAL_DONE))
